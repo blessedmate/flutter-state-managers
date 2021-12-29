@@ -8,7 +8,14 @@ class Page2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Page 2'),
+        title: StreamBuilder(
+          stream: userService.userStream,
+          builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+            return snapshot.hasData
+                ? Text('Name: ${snapshot.data!.name}')
+                : const Text('Page 2');
+          },
+        ),
       ),
       body: Center(
         child: Column(
@@ -19,7 +26,7 @@ class Page2 extends StatelessWidget {
                   const Text('Set user', style: TextStyle(color: Colors.white)),
               color: Colors.blue,
               onPressed: () {
-                final newUser = User('Mate', 21, []);
+                final newUser = User(name: 'Mate', age: 21, professions: []);
                 userService.loadUser(newUser);
               },
             ),
@@ -27,7 +34,9 @@ class Page2 extends StatelessWidget {
               child: const Text('Modify age',
                   style: TextStyle(color: Colors.white)),
               color: Colors.blue,
-              onPressed: () {},
+              onPressed: () {
+                userService.changeAge(30);
+              },
             ),
             MaterialButton(
               child: const Text('Add profession',
