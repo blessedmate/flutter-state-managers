@@ -35,13 +35,17 @@ class Page2 extends StatelessWidget {
               child: const Text('Modify age',
                   style: TextStyle(color: Colors.white)),
               color: Colors.blue,
-              onPressed: () {},
+              onPressed: () {
+                userCubit.changeAge(35);
+              },
             ),
             MaterialButton(
               child: const Text('Add profession',
                   style: TextStyle(color: Colors.white)),
               color: Colors.blue,
-              onPressed: () {},
+              onPressed: () {
+                userCubit.addProfession();
+              },
             ),
           ],
         ),

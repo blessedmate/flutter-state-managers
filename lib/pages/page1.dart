@@ -10,24 +10,48 @@ class Page1 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Page 1'),
+        actions: [
+          IconButton(
+            onPressed: context.read<UserCubit>().deleteUser,
+            icon: const Icon(Icons.exit_to_app),
+          )
+        ],
       ),
       // Build the widget using cubit
-      body: BlocBuilder<UserCubit, UserState>(
-        builder: (_, state) {
-          if (state is UserInitial) {
-            return const Center(child: Text('No user info'));
-          } else if (state is UserActive) {
-            return UserInfo(user: state.user);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
+      body: const StateManager(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.accessibility_new),
         onPressed: () => Navigator.pushNamed(context, 'page2'),
       ),
     );
+  }
+}
+
+class StateManager extends StatelessWidget {
+  const StateManager({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<UserCubit, UserState>(builder: (_, state) {
+      // if (state is UserInitial) {
+      //   return const Center(child: Text('No user info'));
+      // } else if (state is UserActive) {
+      //   return UserInfo(user: state.user);
+      // } else {
+      //   return const Center(child: CircularProgressIndicator());
+      // }
+
+      switch (state.runtimeType) {
+        case UserInitial:
+          return const Center(child: Text('No user info'));
+        case UserActive:
+          return UserInfo(user: (state as UserActive).user);
+        default:
+          return const Center(child: CircularProgressIndicator());
+      }
+    });
   }
 }
 
