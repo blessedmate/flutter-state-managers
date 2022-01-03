@@ -9,6 +9,20 @@ part 'user_state.dart';
 // Events handler: get event, emit state
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(const UserInitialState()) {
-    on<ActivateUser>((event, emit) {});
+    on<ActivateUserEvent>(
+        (event, emit) => emit(UserActiveState(event.newUser)));
+
+    on<ChangeUserAgeEvent>((event, emit) {
+      if (!state.existUser) return;
+      emit(UserActiveState(state.user!.copyWith(age: event.age)));
+    });
+
+    on<AddUserProfessionEvent>((event, emit) {
+      if (!state.existUser) return;
+
+      final professionsList = [...state.user!.professions, event.profession];
+
+      emit(UserActiveState(state.user!.copyWith(professions: professionsList)));
+    });
   }
 }
