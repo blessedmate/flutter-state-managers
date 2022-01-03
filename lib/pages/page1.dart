@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_singleton/bloc/user/user_bloc.dart';
 
 class Page1 extends StatelessWidget {
   const Page1({Key? key}) : super(key: key);
@@ -8,7 +10,11 @@ class Page1 extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Page 1'),
       ),
-      body: UserInfo(),
+      body: BlocBuilder<UserBloc, UserState>(
+        builder: (_, state) => state.existUser
+            ? const UserInfo()
+            : const Center(child: Text('No user info')),
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.accessibility_new),
         onPressed: () => Navigator.pushNamed(context, 'page2'),
