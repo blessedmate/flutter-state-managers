@@ -18,3 +18,5 @@ class AddUserProfessionEvent extends UserEvent {
   final String profession;
   AddUserProfessionEvent(this.profession);
 }
+
+class DeleteUserEvent extends UserEvent {}
