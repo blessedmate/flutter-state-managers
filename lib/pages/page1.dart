@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_singleton/pages/page2.dart';
+import 'package:get/get.dart';
 
 class Page1 extends StatelessWidget {
   const Page1({Key? key}) : super(key: key);
@@ -11,7 +13,9 @@ class Page1 extends StatelessWidget {
       body: UserInfo(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.accessibility_new),
-        onPressed: () => Navigator.pushNamed(context, 'page2'),
+        // onPressed: () => Navigator.pushNamed(context, 'page2'),
+        onPressed: () =>
+            Get.toNamed('page2', arguments: {'name': 'Blessedmate'}),
       ),
     );
   }

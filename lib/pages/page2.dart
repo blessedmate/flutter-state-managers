@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Page2 extends StatelessWidget {
   const Page2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(Get.arguments);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Page 2'),
