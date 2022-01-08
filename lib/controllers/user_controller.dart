@@ -5,6 +5,8 @@ class UserController extends GetxController {
   var userExists = false.obs;
   var user = User().obs;
 
+  int get professionsLength => user.value.professions.length;
+
   void loadUser(User pUser) {
     userExists.value = true;
     user.value = pUser;
@@ -13,6 +15,12 @@ class UserController extends GetxController {
   void changeAge(int age) {
     user.update((val) {
       val!.age = age;
+    });
+  }
+
+  void addProfession(String profession) {
+    user.update((val) {
+      val!.professions = [...val.professions, profession];
     });
   }
 }

@@ -24,6 +24,17 @@ class Page2 extends StatelessWidget {
               color: Colors.blue,
               onPressed: () {
                 userController.loadUser(User(name: 'Blessedmate', age: 21));
+                Get.snackbar(
+                  'New user',
+                  'User was succesfully created',
+                  backgroundColor: Colors.white,
+                  boxShadows: [
+                    const BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 10,
+                    ),
+                  ],
+                );
               },
             ),
             MaterialButton(
@@ -38,7 +49,19 @@ class Page2 extends StatelessWidget {
               child: const Text('Add profession',
                   style: TextStyle(color: Colors.white)),
               color: Colors.blue,
-              onPressed: () {},
+              onPressed: () {
+                userController.addProfession(
+                    'Profession #${userController.professionsLength + 1}');
+              },
+            ),
+            MaterialButton(
+              child: const Text('Change Theme',
+                  style: TextStyle(color: Colors.white)),
+              color: Colors.blue,
+              onPressed: () {
+                Get.changeTheme(
+                    Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
+              },
             ),
           ],
         ),
